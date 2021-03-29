@@ -7,18 +7,19 @@ public class Mfu {
     AtomicInteger id = new AtomicInteger(1);
 
     public void mfuScan () throws InterruptedException {
-        int currentID = id.getAndIncrement();
-        System.out.printf("ID %d. Сканирую...\n", currentID);
-        Thread.sleep(2000);
-        System.out.printf("ID %d. Отсканировал\n",currentID);
-    }
-    public void mfuPrint () throws InterruptedException {
         synchronized (mon) {
+            int currentID = id.getAndIncrement();
+            System.out.printf("ID %d. Сканирую...\n", currentID);
+            Thread.sleep(2000);
+            System.out.printf("ID %d. Отсканировал\n", currentID);
+        }
+    }
+
+    public void mfuPrint () throws InterruptedException {
             int currentID = id.getAndIncrement();
             System.out.printf("ID %d. Печатаю...\n", currentID);
             Thread.sleep(5000);
             System.out.printf("ID %d. Напечатал.\n", currentID);
-}
     }
 
     public void mfuCopy () throws InterruptedException {
@@ -52,7 +53,7 @@ public class Mfu {
                try {
                    mfu.mfuScan();
                    Thread.sleep(9000);
-                   mfu.mfuScan();
+//                   mfu.mfuScan();
                } catch (InterruptedException e) {
                    e.printStackTrace();
                }
